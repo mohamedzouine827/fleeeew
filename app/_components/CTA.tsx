@@ -1,3 +1,4 @@
+import Link from 'next/link'
 import React from 'react'
 
 export default function CTA() {
@@ -7,9 +8,11 @@ export default function CTA() {
         <div className="text-black text-4xl font-medium  leading-10">Try Fleeeew Now!</div>
         <div className="text-slate-600 text-xl font-medium  leading-7">Try Fleeew now and save time scheduling your videos</div>
     </div>
+    <Link href="/upload">
     <div className="px-6 py-3 cursor-pointer rounded-[5px] justify-center items-center gap-2.5 flex hover:bg-[#F43F5E] transition-colors duration-150 ease-in-out bg-[#E11D48] text-[#FEFCE8]">
         <div className=" text-base font-semibold  leading-normal">Get Started</div>
     </div>
+    </Link>
 </div>
   )
 }
