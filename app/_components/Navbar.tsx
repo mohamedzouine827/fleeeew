@@ -2,10 +2,22 @@
 import Image from 'next/image'
 import React from 'react'
 import Logo from "@/public/Logo.svg"
-import { usePathname } from 'next/navigation'
+import { usePathname, useRouter } from 'next/navigation'
+import { signIn, signOut, useSession } from 'next-auth/react'
+
 
 function Navbar() {
-  const pathname = usePathname(); // Get the current path
+  const pathname = usePathname();
+  const router = useRouter();
+  const { data: session, status } = useSession();
+
+  const handleGetStarted = async () => {
+    if (status === 'authenticated') {
+      router.push('/upload');
+    } else {
+      router.push('/signin');
+    }
+  };
 
   return (
     <section className='flex flex-row justify-between items-center px-[60px] py-4'> 
@@ -20,8 +32,19 @@ function Navbar() {
           </p>
         </div>
         {pathname === '/' && (
-          <button className='px-[24px] py-[12px] text-[16px] leading-[24px] hover:bg-[#F43F5E] transition-colors duration-150 ease-in-out bg-[#E11D48] text-[#FEFCE8] font-semibold rounded-[5px]'>
-            Get Started
+          <button
+            onClick={handleGetStarted}
+            className='px-[24px] py-[12px] text-[16px] leading-[24px] hover:bg-[#F43F5E] transition-colors duration-150 ease-in-out bg-[#E11D48] text-[#FEFCE8] font-semibold rounded-[5px]'
+          >
+            {status === 'authenticated' ? 'Go to Upload' : 'Get Started'}
+          </button>
+        )}
+        {status === 'authenticated' && (
+          <button
+            onClick={() => signOut()}
+            className='px-[24px] py-[12px] text-[16px] leading-[24px] bg-gray-200 hover:bg-gray-300 transition-colors duration-150 ease-in-out text-gray-800 font-semibold rounded-[5px]'
+          >
+            Sign Out
           </button>
         )}
       </div>

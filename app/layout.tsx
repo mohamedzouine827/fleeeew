@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import { Plus_Jakarta_Sans } from "next/font/google";
+import { SessionProvider } from 'next-auth/react'
+import Providers from "./_components/Providers";
 
 const inter = Plus_Jakarta_Sans({ subsets: ["latin"] });
 export const metadata: Metadata = {
@@ -18,7 +20,9 @@ export default function RootLayout({
       <body
         className={`${inter.className} antialiased`}
       >
+        <Providers>
         {children}
+        </Providers>
       </body>
     </html>
   );
